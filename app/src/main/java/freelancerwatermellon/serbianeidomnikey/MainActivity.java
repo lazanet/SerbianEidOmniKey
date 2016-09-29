@@ -270,13 +270,14 @@ public class MainActivity extends Activity {
         });
 
         // Create service and try to bind to it
+        Util.logDebug("GOING TO BIND SERVICE");
         bindBackendService();
     }
 
     public void bindBackendService() {
         Intent intent = new Intent();
         intent.setAction(Constants.BackendServiceAction);
-        intent.setPackage("com.freelancewatermelon.licnakarta");
+        intent.setPackage(getApplicationContext().getPackageName());
         this.mContext.startService(intent);
         this.mContext.bindService(intent, this.mBackendServiceConnection, Context.BIND_AUTO_CREATE);
     }

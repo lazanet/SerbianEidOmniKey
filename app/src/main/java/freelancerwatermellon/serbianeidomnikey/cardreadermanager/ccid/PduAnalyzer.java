@@ -1,6 +1,6 @@
 package freelancerwatermellon.serbianeidomnikey.cardreadermanager.ccid;
 
-import com.freelancewatermelon.licnakarta.cardreadermanager.Util;
+import freelancerwatermellon.serbianeidomnikey.cardreadermanager.Util;
 
 public class PduAnalyzer {
     public static final int COMMAND_CASE_1 = 1;

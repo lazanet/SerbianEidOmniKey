@@ -3,14 +3,14 @@ package freelancerwatermellon.serbianeidomnikey.cardreadermanager.bt;
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothSocket;
 
-import com.freelancewatermelon.licnakarta.cardreadermanager.ICommunicator;
-import com.freelancewatermelon.licnakarta.cardreadermanager.Util;
-import com.freelancewatermelon.licnakarta.cardreadermanager.ccid.CcidDescriptor;
-import com.freelancewatermelon.licnakarta.cardreadermanager.ccid.DeviceCommunicator;
-
 import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.util.UUID;
+
+import freelancerwatermellon.serbianeidomnikey.cardreadermanager.ICommunicator;
+import freelancerwatermellon.serbianeidomnikey.cardreadermanager.Util;
+import freelancerwatermellon.serbianeidomnikey.cardreadermanager.ccid.CcidDescriptor;
+import freelancerwatermellon.serbianeidomnikey.cardreadermanager.ccid.DeviceCommunicator;
 
 public class BtCommunicator implements ICommunicator {
     private static final int BLUETOOTH_BAD_RESPONSE_PREFIX = 163;

@@ -1,6 +1,6 @@
 package freelancerwatermellon.serbianeidomnikey.cardreadermanager.ccid;
 
-import com.freelancewatermelon.licnakarta.cardreadermanager.BuildConfig;
+import freelancerwatermellon.serbianeidomnikey.cardreadermanager.BuildConfig;
 
 public class CcidDescriptor {
     public static final int CCID_DESCRIPTOR_LENGTH = 54;

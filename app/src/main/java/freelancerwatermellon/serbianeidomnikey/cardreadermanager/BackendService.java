@@ -19,16 +19,16 @@ import android.smartcardio.ipc.IBackendIPC.Stub;
 import android.util.Log;
 import android.widget.Toast;
 
-import com.freelancewatermelon.licnakarta.cardreadermanager.bt.BtCommunicator;
-import com.freelancewatermelon.licnakarta.cardreadermanager.ccid.DeviceCommunicator;
-import com.freelancewatermelon.licnakarta.cardreadermanager.usb.UsbCommunicator;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 import java.util.UUID;
+
+import freelancerwatermellon.serbianeidomnikey.cardreadermanager.bt.BtCommunicator;
+import freelancerwatermellon.serbianeidomnikey.cardreadermanager.ccid.DeviceCommunicator;
+import freelancerwatermellon.serbianeidomnikey.cardreadermanager.usb.UsbCommunicator;
 
 public class BackendService extends Service {
     private static final String ACTION_USB_PERMISSION = "com.theobroma.cardreadermanager.USB_PERMISSION";
@@ -350,7 +350,7 @@ public class BackendService extends Service {
                         // local Usb device is recognised by vendor and product id, and is not in the list
                         synchronized (BackendService.this.mPermissionLock) {
                             // Ask for permission
-                            Log.e("Backend Service" , "Asking for permission");
+                            Log.e("Backend Service", "Asking for permission");
                             mUsbManager.requestPermission(localUsbDevice, mPermissionIntent);
                             BackendService.this.mPermissionLock.notify();
                         }

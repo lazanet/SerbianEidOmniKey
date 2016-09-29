@@ -1,8 +1,8 @@
 package freelancerwatermellon.serbianeidomnikey.cardreadermanager;
 
-import com.freelancewatermelon.licnakarta.cardreadermanager.ccid.CcidDescriptor;
-
 import java.nio.ByteBuffer;
+
+import freelancerwatermellon.serbianeidomnikey.cardreadermanager.ccid.CcidDescriptor;
 
 public interface ICommunicator {
     boolean bulkIn(ByteBuffer byteBuffer, int i);

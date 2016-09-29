@@ -1,12 +1,12 @@
 package freelancerwatermellon.serbianeidomnikey.cardreadermanager.ccid;
 
-import com.freelancewatermelon.licnakarta.cardreadermanager.BuildConfig;
-import com.freelancewatermelon.licnakarta.cardreadermanager.ICommunicator;
-import com.freelancewatermelon.licnakarta.cardreadermanager.Util;
-
 import java.nio.ByteBuffer;
 import java.util.ArrayList;
 import java.util.concurrent.locks.ReentrantLock;
+
+import freelancerwatermellon.serbianeidomnikey.cardreadermanager.BuildConfig;
+import freelancerwatermellon.serbianeidomnikey.cardreadermanager.ICommunicator;
+import freelancerwatermellon.serbianeidomnikey.cardreadermanager.Util;
 
 public class DeviceCommunicator {
     public static final byte BLOCK_WAITING_TIME_EXTENDER = (byte) 1;
@@ -220,7 +220,7 @@ public class DeviceCommunicator {
             return currentStatus;
         } finally {
             //if (this.mXferLock.isLocked())
-                this.mXferLock.unlock();
+            this.mXferLock.unlock();
         }
     }
 
@@ -250,7 +250,7 @@ public class DeviceCommunicator {
             //this.mXferLock.unlock();
             return null;
         } finally {
-                this.mXferLock.unlock();
+            this.mXferLock.unlock();
         }
     }
 
@@ -287,7 +287,7 @@ public class DeviceCommunicator {
             return null;
         } finally {
             //if (this.mXferLock.isLocked())
-                this.mXferLock.unlock();
+            this.mXferLock.unlock();
         }
     }
 
@@ -306,7 +306,7 @@ public class DeviceCommunicator {
                 }
             } finally {
                 //if (this.mXferLock.isLocked())
-                    this.mXferLock.unlock();
+                this.mXferLock.unlock();
             }
         } else if (this.mCcidDescriptor.featExchange() == CcidDescriptor.FEAT_EXCHANGE_TPDU || pduAnalyzer.extendedModeNecessary(this.mCcidDescriptor.maxCCIDMessageLength()) || this.mTpduTransmission) {
             Util.logDebug("TPDU transmission");
@@ -319,7 +319,7 @@ public class DeviceCommunicator {
                         break;
                     } finally {
                         //if (this.mXferLock.isLocked())
-                            this.mXferLock.unlock();
+                        this.mXferLock.unlock();
                     }
                 case EXT_APDU_LEVEL_END /*2*/:
                     this.mXferLock.lock();
@@ -328,7 +328,7 @@ public class DeviceCommunicator {
                         break;
                     } finally {
                         //if (this.mXferLock.isLocked())
-                            this.mXferLock.unlock();
+                        this.mXferLock.unlock();
                     }
                 default:
                     Util.logError("unexpected value for mCurrentProtocol: " + this.mCurrentProtocol);
@@ -345,7 +345,7 @@ public class DeviceCommunicator {
                 }
             } finally {
                 //if (this.mXferLock.isLocked())
-                    this.mXferLock.unlock();
+                this.mXferLock.unlock();
             }
         } else if (this.mCcidDescriptor.featExchange() == 0) {
             Util.logError("CCID character level currently not supported");
@@ -530,7 +530,7 @@ public class DeviceCommunicator {
             }
         } finally {
             //if (this.mXferLock.isLocked())
-                this.mXferLock.unlock();
+            this.mXferLock.unlock();
         }
     }
 

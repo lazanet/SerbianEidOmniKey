@@ -4,7 +4,7 @@ import android.support.v4.media.TransportMediator;
 import android.support.v4.view.MotionEventCompat;
 import android.support.v4.view.accessibility.AccessibilityNodeInfoCompat;
 
-import com.freelancewatermelon.licnakarta.cardreadermanager.Util;
+import freelancerwatermellon.serbianeidomnikey.cardreadermanager.Util;
 
 public class AtrReader {
     public static final int CONVENTION_DIRECT = 1;

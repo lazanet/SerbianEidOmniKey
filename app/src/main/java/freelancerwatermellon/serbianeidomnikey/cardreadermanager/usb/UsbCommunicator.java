@@ -8,13 +8,13 @@ import android.hardware.usb.UsbManager;
 import android.hardware.usb.UsbRequest;
 import android.support.v4.media.TransportMediator;
 
-import com.freelancewatermelon.licnakarta.cardreadermanager.BuildConfig;
-import com.freelancewatermelon.licnakarta.cardreadermanager.Constants;
-import com.freelancewatermelon.licnakarta.cardreadermanager.ICommunicator;
-import com.freelancewatermelon.licnakarta.cardreadermanager.Util;
-import com.freelancewatermelon.licnakarta.cardreadermanager.ccid.CcidDescriptor;
-
 import java.nio.ByteBuffer;
+
+import freelancerwatermellon.serbianeidomnikey.cardreadermanager.BuildConfig;
+import freelancerwatermellon.serbianeidomnikey.cardreadermanager.Constants;
+import freelancerwatermellon.serbianeidomnikey.cardreadermanager.ICommunicator;
+import freelancerwatermellon.serbianeidomnikey.cardreadermanager.Util;
+import freelancerwatermellon.serbianeidomnikey.cardreadermanager.ccid.CcidDescriptor;
 
 public class UsbCommunicator implements ICommunicator {
     private static final int BULK_TRANSFER_TIMEOUT = 100;

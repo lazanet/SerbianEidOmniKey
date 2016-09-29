@@ -1,14 +1,14 @@
 package freelancerwatermellon.serbianeidomnikey.cardreadermanager.ccid;
 
-import com.freelancewatermelon.licnakarta.cardreadermanager.BuildConfig;
-
 import java.util.ArrayList;
 
-import static com.freelancewatermelon.licnakarta.cardreadermanager.Util.byteArrayToString;
-import static com.freelancewatermelon.licnakarta.cardreadermanager.Util.formatByte;
-import static com.freelancewatermelon.licnakarta.cardreadermanager.Util.logDebug;
-import static com.freelancewatermelon.licnakarta.cardreadermanager.Util.logError;
-import static com.freelancewatermelon.licnakarta.cardreadermanager.Util.lrc;
+import freelancerwatermellon.serbianeidomnikey.cardreadermanager.BuildConfig;
+
+import static freelancerwatermellon.serbianeidomnikey.cardreadermanager.Util.byteArrayToString;
+import static freelancerwatermellon.serbianeidomnikey.cardreadermanager.Util.formatByte;
+import static freelancerwatermellon.serbianeidomnikey.cardreadermanager.Util.logDebug;
+import static freelancerwatermellon.serbianeidomnikey.cardreadermanager.Util.logError;
+import static freelancerwatermellon.serbianeidomnikey.cardreadermanager.Util.lrc;
 
 public class T1Handler {
     public static final int BLOCK_TYPE_I = 1;
