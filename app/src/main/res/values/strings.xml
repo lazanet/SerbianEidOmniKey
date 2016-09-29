@@ -1,0 +1,57 @@
+<resources>
+
+    <string name="app_name">ČITAČ ELEKTRONSKE LIČNE KARTE: ŠTAMPA PODATAKA</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="menu_settings">Settings</string>
+    <string name="title_activity_jsr268_client">SrpskaLK</string>
+
+    <string name="save_to_pdf">Сачувај пдф</string>
+    <string name="prezime">Презиме:</string>
+    <string name="ime">Име:</string>
+    <string name="ime_roditelja">Име једног родитеља:</string>
+    <string name="datum_rodjenja">Датум рођења:</string>
+    <string name="mesto_rodjenja">Место рођења:</string>
+    <string name="adresa">Пребивалиште:</string>
+    <string name="jmbg">Јмбг:</string>
+    <string name="pol">Пол:</string>
+    <string name="izdao">Документ издаје:</string>
+    <string name="broj_l_karte">Број документа:</string>
+    <string name="datum_izdavanja">Датум издавања:</string>
+    <string name="vazi_do">Важи до:</string>
+
+    <string name="prezime_pdf">Prezime:</string>
+    <string name="ime_pdf">Ime:</string>
+    <string name="ime_roditelja_pdf">Ime jednog roditelja:</string>
+    <string name="datum_rodjenja_pdf">Datum rođenja:</string>
+    <string name="mesto_rodjenja_pdf">Mesto rođenja, opština, i država:</string>
+    <string name="adresa_pdf">Prebivalište i adresa stana:</string>
+    <string name="jmbg_pdf">JMBG:</string>
+    <string name="pol_pdf">Pol:</string>
+    <string name="izdao_pdf">Dokument izdaje:</string>
+    <string name="broj_l_karte_pdf">Broj dokumenta:</string>
+    <string name="datum_izdavanja_pdf">Datum izdavanja:</string>
+    <string name="vazi_do_pdf">Važi do:</string>
+
+    <!--  -->
+    <string name="datum">31.12.2022.</string>
+    <string name="text">....................</string>
+    <string name="num">1234567890</string>
+    <string name="include_image_dialog_title">Čitanje sadržaja</string>
+    <string name="include_image_dialog_msg">Učitaj sliku?</string>
+    <string name="include_positive">Da (sporo)</string>
+    <string name="include_negative">Ne (brzo)</string>
+    <string name="reader_absent">Čitač: NEMA</string>
+    <string name="card_absent">Kartica: NEMA</string>
+    <string name="reader_present">Čitač: OK</string>
+    <string name="card_unknown">Kartica: ?</string>
+    <string name="card_present">Kartica: LK</string>
+    <string name="enter_key_dialog_title">Neregistrovan korisnik</string>
+    <string name="ok">OK</string>
+    <string name="cancel">Otkaži</string>
+    <string name="management_app_required_title">Potreban driver</string>
+    <string name="management_app_required_msg">Morate da instalirate CardReaderManagement aplikaciju.</string>
+
+    <string name="smartcardio_permission_description">Allows this app to receive smart card events and to access the HID Global Omnikey Base Service.</string>
+    <string name="smartcardio_permission_label">Access HID Global Omnikey Base Service</string>
+
+</resources>

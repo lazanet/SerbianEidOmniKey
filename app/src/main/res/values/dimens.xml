@@ -1,0 +1,11 @@
+<resources>
+
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="activity_horizontal_margin">2dp</dimen>
+    <dimen name="activity_vertical_margin">2dp</dimen>
+    <dimen name="padding_label">4dp</dimen>
+    <dimen name="padding_data">4dp</dimen>
+    <dimen name="padding_img">12dp</dimen>
+    <dimen name="padding_button">20dp</dimen>
+
+</resources>

@@ -1,0 +1,87 @@
+<resources>
+
+    <style name="AppTheme" parent="android:Theme.Light">
+        <item name="android:windowNoTitle">true</item>
+    </style>
+
+    <color name="black">#000000</color>
+    <color name="grey">#AAAAAA</color>
+
+    <style name="labelLarge" parent="@android:style/TextAppearance.Medium">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:paddingBottom">@dimen/padding_label</item>
+        <item name="android:paddingLeft">@dimen/padding_label</item>
+        <item name="android:paddingRight">@dimen/padding_label</item>
+        <item name="android:paddingTop">@dimen/padding_label</item>
+        <item name="android:shadowDx">2</item>
+        <item name="android:shadowDy">2</item>
+        <item name="android:shadowRadius">6</item>
+        <item name="android:shadowColor">#EE85A74A</item>
+    </style>
+
+    <style name="dataLarge" parent="@android:style/TextAppearance.Large">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:paddingBottom">@dimen/padding_data</item>
+        <item name="android:paddingLeft">@dimen/padding_data</item>
+        <item name="android:paddingRight">@dimen/padding_data</item>
+        <item name="android:paddingTop">@dimen/padding_data</item>
+        <item name="android:shadowDx">3</item>
+        <item name="android:shadowDy">3</item>
+        <item name="android:shadowRadius">6</item>
+        <item name="android:shadowColor">#EE85A74A</item>
+    </style>
+
+
+    <style name="label" parent="@android:style/TextAppearance.Medium">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:paddingBottom">@dimen/padding_label</item>
+        <item name="android:paddingLeft">@dimen/padding_label</item>
+        <item name="android:paddingRight">@dimen/padding_label</item>
+        <item name="android:paddingTop">@dimen/padding_label</item>
+        <item name="android:shadowDx">2</item>
+        <item name="android:shadowDy">2</item>
+        <item name="android:shadowRadius">6</item>
+        <item name="android:shadowColor">#EE85A74A</item>
+    </style>
+
+
+    <style name="data" parent="@android:style/TextAppearance.Medium">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:paddingBottom">@dimen/padding_data</item>
+        <item name="android:paddingLeft">@dimen/padding_data</item>
+        <item name="android:paddingRight">@dimen/padding_data</item>
+        <item name="android:paddingTop">@dimen/padding_data</item>
+        <item name="android:shadowDx">3</item>
+        <item name="android:shadowDy">3</item>
+        <item name="android:shadowRadius">6</item>
+        <item name="android:shadowColor">#EE85A74A</item>
+    </style>
+
+    <style name="logStyle" parent="@android:style/TextAppearance.Large">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:paddingLeft">@dimen/padding_label</item>
+        <item name="android:paddingRight">@dimen/padding_label</item>
+        <item name="android:paddingTop">@dimen/padding_button</item>
+        <item name="android:paddingBottom">@dimen/padding_button</item>
+        <item name="android:shadowDx">2</item>
+        <item name="android:shadowDy">2</item>
+        <item name="android:shadowRadius">6</item>
+        <item name="android:shadowColor">#EE85A74A</item>
+        <item name="android:visibility">visible</item>
+    </style>
+
+</resources>
