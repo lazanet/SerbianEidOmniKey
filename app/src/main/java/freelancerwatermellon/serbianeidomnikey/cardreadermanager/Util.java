@@ -1,6 +1,5 @@
 package freelancerwatermellon.serbianeidomnikey.cardreadermanager;
 
-import android.support.v4.view.MotionEventCompat;
 import android.util.Log;
 
 import java.io.BufferedReader;
@@ -63,7 +62,7 @@ public class Util {
     }
 
     public static String formatByte(int value) {
-        return "0x" + Integer.toHexString(value & MotionEventCompat.ACTION_MASK);
+        return "0x" + Integer.toHexString(value & 255);
     }
 
     public static Set<String> stringToSet(String string, String separatorRegex) {

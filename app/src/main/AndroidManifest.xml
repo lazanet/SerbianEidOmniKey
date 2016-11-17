@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="freelancerwatermellon.serbianeidomnikey">
 
-    <uses-sdk android:targetSdkVersion="19" />
+    <uses-sdk android:targetSdkVersion="24" />
 
     <uses-feature android:name="android.hardware.usb.host" />
     <permission

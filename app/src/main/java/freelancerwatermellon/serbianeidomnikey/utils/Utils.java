@@ -186,4 +186,12 @@ public class Utils {
 		}
 		return builder.toString();
 	}
+
+    public static String byteArrayToString(byte[] array) {
+        String hex = "";
+        for (int i = 0; i < array.length; i++) {
+            hex += "0x" + Integer.toHexString(array[i] & 0x000000ff) + " ";
+        }
+        return hex;
+    }
 }

@@ -1,9 +1,5 @@
 package freelancerwatermellon.serbianeidomnikey.cardreadermanager.ccid;
 
-import android.support.v4.media.TransportMediator;
-import android.support.v4.view.MotionEventCompat;
-import android.support.v4.view.accessibility.AccessibilityNodeInfoCompat;
-
 import freelancerwatermellon.serbianeidomnikey.cardreadermanager.Util;
 
 public class AtrReader {
@@ -13,7 +9,7 @@ public class AtrReader {
     public static final int[] Fi;
 
     static {
-        Fi = new int[]{372, 372, 558, 744, 1116, 1488, 1860, 0, 0, CcidDescriptor.FEAT_NAD_VALUE_OTHER_THAN_0, 768, CcidDescriptor.FEAT_AUTOMATIC_IFSD_EXCHANGE, 1536, AccessibilityNodeInfoCompat.ACTION_PREVIOUS_HTML_ELEMENT, 0, 0};
+        Fi = new int[]{372, 372, 558, 744, 1116, 1488, 1860, 0, 0, CcidDescriptor.FEAT_NAD_VALUE_OTHER_THAN_0, 768, CcidDescriptor.FEAT_AUTOMATIC_IFSD_EXCHANGE, 1536, 2048, 0, 0};
         Di = new int[]{CONVENTION_DIRECT, CONVENTION_INVERSE, 4, 8, 16, 32, 0, 12, 20, 0, 0, 0, 0, 0, 0};
     }
 
@@ -68,7 +64,7 @@ public class AtrReader {
                 this.mT1_BWI = (byte) 4;
                 Util.logDebug("parsing ATR " + Util.byteArrayToString(this.mRaw));
                 int pos = 0 + CONVENTION_DIRECT;
-                int ts = this.mRaw[0] & MotionEventCompat.ACTION_MASK;
+                int ts = this.mRaw[0] & 255;
                 switch (ts) {
                     case 59:
                         Util.logDebug("TS: direct convention");
@@ -93,16 +89,16 @@ public class AtrReader {
                     int tbi;
                     int tci;
                     int pos2 = pos + CONVENTION_DIRECT;
-                    int tdi = this.mRaw[pos] & MotionEventCompat.ACTION_MASK;
+                    int tdi = this.mRaw[pos] & 255;
                     int T = tdi & 15;
                     boolean ta = (tdi & 16) != 0;
                     boolean tb = (tdi & 32) != 0;
                     boolean tc = (tdi & 64) != 0;
-                    td = (tdi & TransportMediator.FLAG_KEY_MEDIA_NEXT) != 0;
+                    td = (tdi & 128) != 0;
                     if (i == CONVENTION_DIRECT) {
                         if (ta) {
                             pos = pos2 + CONVENTION_DIRECT;
-                            int ta1 = this.mRaw[pos2] & MotionEventCompat.ACTION_MASK;
+                            int ta1 = this.mRaw[pos2] & 255;
                             this.mFI = (byte) (ta1 >> 4);
                             this.mDI = (byte) (ta1 & 15);
                             Util.logDebug("TA1: fi = " + Util.formatByte(this.mFI) + ", di = " + Util.formatByte(this.mDI));
@@ -111,12 +107,12 @@ public class AtrReader {
                         }
                         if (tb) {
                             pos2 = pos + CONVENTION_DIRECT;
-                            Util.logDebug("TB1: " + Util.formatByte(this.mRaw[pos] & MotionEventCompat.ACTION_MASK));
+                            Util.logDebug("TB1: " + Util.formatByte(this.mRaw[pos] & 255));
                             pos = pos2;
                         }
                         if (tc) {
                             pos2 = pos + CONVENTION_DIRECT;
-                            this.mGuard = (byte) (this.mRaw[pos] & MotionEventCompat.ACTION_MASK);
+                            this.mGuard = (byte) (this.mRaw[pos] & 255);
                             Util.logDebug("TC1: guard = " + Util.formatByte(this.mGuard));
                         }
                         if (i > CONVENTION_DIRECT && T != 0) {
@@ -126,18 +122,18 @@ public class AtrReader {
                             firstOffer = T;
                             if (ta) {
                                 pos2 = pos + CONVENTION_DIRECT;
-                                ta2 = this.mRaw[pos] & MotionEventCompat.ACTION_MASK;
+                                ta2 = this.mRaw[pos] & 255;
                                 Util.logDebug("TA2: " + Util.formatByte(ta2));
                                 pos = pos2;
                             }
                             if (tb) {
                                 pos2 = pos + CONVENTION_DIRECT;
-                                Util.logDebug("TB2: " + Util.formatByte(this.mRaw[pos] & MotionEventCompat.ACTION_MASK));
+                                Util.logDebug("TB2: " + Util.formatByte(this.mRaw[pos] & 255));
                                 pos = pos2;
                             }
                             if (tc) {
                                 pos2 = pos + CONVENTION_DIRECT;
-                                this.mT0_WI = (byte) (this.mRaw[pos] & MotionEventCompat.ACTION_MASK);
+                                this.mT0_WI = (byte) (this.mRaw[pos] & 255);
                                 Util.logDebug("TC2: T0 WI = " + Util.formatByte(this.mT0_WI));
                                 pos = pos2;
                             }
@@ -146,13 +142,13 @@ public class AtrReader {
                             if (!t1Block) {
                                 if (ta) {
                                     pos2 = pos + CONVENTION_DIRECT;
-                                    this.mT1_IFSC = this.mRaw[pos] & MotionEventCompat.ACTION_MASK;
+                                    this.mT1_IFSC = this.mRaw[pos] & 255;
                                     Util.logDebug("TA" + i + ": T1 IFSC = " + Util.formatByte(this.mT1_IFSC));
                                     pos = pos2;
                                 }
                                 if (tb) {
                                     pos2 = pos + CONVENTION_DIRECT;
-                                    tbi = this.mRaw[pos] & MotionEventCompat.ACTION_MASK;
+                                    tbi = this.mRaw[pos] & 255;
                                     this.mT1_CWI = (byte) (tbi & 15);
                                     this.mT1_BWI = (byte) (tbi >> 4);
                                     Util.logDebug("TB" + i + ": T1 CWI = " + Util.formatByte(this.mT1_CWI) + ", T1 BWI = " + Util.formatByte(this.mT1_BWI));
@@ -160,7 +156,7 @@ public class AtrReader {
                                 }
                                 if (tc) {
                                     pos2 = pos + CONVENTION_DIRECT;
-                                    tci = this.mRaw[pos] & MotionEventCompat.ACTION_MASK;
+                                    tci = this.mRaw[pos] & 255;
                                     this.mT1_CRC = (tci & CONVENTION_DIRECT) != CONVENTION_DIRECT;
                                     Util.logDebug("TC" + i + ": T1 CRC = " + Util.formatByte(tci & CONVENTION_DIRECT));
                                     t1Block = true;
@@ -178,7 +174,7 @@ public class AtrReader {
                                 pos2 = pos;
                             } else {
                                 pos2 = pos + CONVENTION_DIRECT;
-                                Util.logDebug("TA" + i + ": " + Util.formatByte(this.mRaw[pos] & MotionEventCompat.ACTION_MASK));
+                                Util.logDebug("TA" + i + ": " + Util.formatByte(this.mRaw[pos] & 255));
                             }
                             t15Block = true;
                         }
@@ -197,18 +193,18 @@ public class AtrReader {
                         firstOffer = T;
                         if (ta) {
                             pos2 = pos + CONVENTION_DIRECT;
-                            ta2 = this.mRaw[pos] & MotionEventCompat.ACTION_MASK;
+                            ta2 = this.mRaw[pos] & 255;
                             Util.logDebug("TA2: " + Util.formatByte(ta2));
                             pos = pos2;
                         }
                         if (tb) {
                             pos2 = pos + CONVENTION_DIRECT;
-                            Util.logDebug("TB2: " + Util.formatByte(this.mRaw[pos] & MotionEventCompat.ACTION_MASK));
+                            Util.logDebug("TB2: " + Util.formatByte(this.mRaw[pos] & 255));
                             pos = pos2;
                         }
                         if (tc) {
                             pos2 = pos + CONVENTION_DIRECT;
-                            this.mT0_WI = (byte) (this.mRaw[pos] & MotionEventCompat.ACTION_MASK);
+                            this.mT0_WI = (byte) (this.mRaw[pos] & 255);
                             Util.logDebug("TC2: T0 WI = " + Util.formatByte(this.mT0_WI));
                             pos = pos2;
                         }
@@ -216,13 +212,13 @@ public class AtrReader {
                     if (t1Block) {
                         if (ta) {
                             pos2 = pos + CONVENTION_DIRECT;
-                            this.mT1_IFSC = this.mRaw[pos] & MotionEventCompat.ACTION_MASK;
+                            this.mT1_IFSC = this.mRaw[pos] & 255;
                             Util.logDebug("TA" + i + ": T1 IFSC = " + Util.formatByte(this.mT1_IFSC));
                             pos = pos2;
                         }
                         if (tb) {
                             pos2 = pos + CONVENTION_DIRECT;
-                            tbi = this.mRaw[pos] & MotionEventCompat.ACTION_MASK;
+                            tbi = this.mRaw[pos] & 255;
                             this.mT1_CWI = (byte) (tbi & 15);
                             this.mT1_BWI = (byte) (tbi >> 4);
                             Util.logDebug("TB" + i + ": T1 CWI = " + Util.formatByte(this.mT1_CWI) + ", T1 BWI = " + Util.formatByte(this.mT1_BWI));
@@ -230,7 +226,7 @@ public class AtrReader {
                         }
                         if (tc) {
                             pos2 = pos + CONVENTION_DIRECT;
-                            tci = this.mRaw[pos] & MotionEventCompat.ACTION_MASK;
+                            tci = this.mRaw[pos] & 255;
                             if ((tci & CONVENTION_DIRECT) != CONVENTION_DIRECT) {
                             }
                             this.mT1_CRC = (tci & CONVENTION_DIRECT) != CONVENTION_DIRECT;

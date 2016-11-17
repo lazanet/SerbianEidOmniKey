@@ -22,7 +22,7 @@ public class EidCardGemalto extends EidCard {
             (byte) 0x85, (byte) 0x02, (byte) 0x01, (byte) 0xF3, (byte) 0x12, (byte) 0x0F, (byte) 0xFF,
             (byte) 0x82, (byte) 0x90, (byte) 0x00, (byte) 0x79
     };
-    static final byte[] LICNA_KARTA_AID = {
+    static final byte[] SERBIAN_EID_AID = {
             (byte) 0xF3, (byte) 0x81, (byte) 0x00, (byte) 0x00, (byte) 0x02, (byte) 0x53, (byte) 0x45,
             (byte) 0x52, (byte) 0x49, (byte) 0x44, (byte) 0x01
     };
@@ -60,20 +60,21 @@ public class EidCardGemalto extends EidCard {
                 length = ((0xFF & data[3]) << 8) + (0xFF & data[2]);
                 int skip = strip_tag ? 8 : 4;
                 out.write(data, skip, data.length - skip);
+                if (strip_tag)
+                    length += 4;
                 known_real_length = true;
             } else out.write(data, 0, data.length);
 
             offset += data.length;
             length -= data.length;
         }
-
         return out.toByteArray();
     }
 
     @Override
     protected void selectAid() throws CardException, MyException {
         ResponseAPDU response = mChannel.transmit(
-                new CommandAPDU(0x00, 0xA4, 0x04, 0x00, LICNA_KARTA_AID));
+                new CommandAPDU(0x00, 0xA4, 0x04, 0x00, SERBIAN_EID_AID));
         if (response.getSW() != 0x9000) {
             throw new CardException(
                     String.format("Select AID failed: status=%s",

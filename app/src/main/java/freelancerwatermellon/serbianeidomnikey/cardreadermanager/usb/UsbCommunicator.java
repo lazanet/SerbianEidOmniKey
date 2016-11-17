@@ -6,7 +6,6 @@ import android.hardware.usb.UsbEndpoint;
 import android.hardware.usb.UsbInterface;
 import android.hardware.usb.UsbManager;
 import android.hardware.usb.UsbRequest;
-import android.support.v4.media.TransportMediator;
 
 import java.nio.ByteBuffer;
 
@@ -149,7 +148,7 @@ public class UsbCommunicator implements ICommunicator {
                         case 0 /*0*/:
                             this.mBulkEndpointOut = usbEndpoint;
                             break;
-                        case TransportMediator.FLAG_KEY_MEDIA_NEXT /*128*/:
+                        case 128 /*128*/:
                             this.mBulkEndpointIn = usbEndpoint;
                             break;
                         default:

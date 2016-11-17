@@ -105,7 +105,7 @@ public abstract class EidCard {
             // AddressLabel ?
         }
     };
-    private static final int BLOCK_SIZE = 0xFB;
+    private static final int BLOCK_SIZE = 0xFB; // WAS FB Changed back to FF
     protected Card mCard;
     protected CardChannel mChannel;
     String log_str = "";
@@ -279,7 +279,6 @@ public abstract class EidCard {
             // mChannel = mCard.getBasicChannel();
 
             byte[] bytes = readElementaryFile(PHOTO_FILE, true);
-
             return BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
         } finally {
             mCard.endExclusive();
