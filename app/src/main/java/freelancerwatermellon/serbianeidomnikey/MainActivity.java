@@ -483,6 +483,11 @@ public class MainActivity extends Activity {
                 }
             }
         }
+
+        @Override
+        public void onProgressUpdate(Void... params) {
+
+        }
     }
 
     class BackendServiceConnection implements ServiceConnection {
