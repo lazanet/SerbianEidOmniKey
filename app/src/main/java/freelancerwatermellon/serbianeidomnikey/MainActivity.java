@@ -6,7 +6,6 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.content.ServiceConnection;
 import android.graphics.Bitmap;
 import android.os.AsyncTask;
@@ -21,7 +20,6 @@ import android.smartcardio.CardTerminal;
 import android.smartcardio.TerminalFactory;
 import android.smartcardio.ipc.CardService;
 import android.smartcardio.ipc.ICardService;
-import android.support.v4.content.LocalBroadcastManager;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
@@ -181,7 +179,7 @@ public class MainActivity extends Activity {
         mBackendServiceConnection = new BackendServiceConnection();
         // create omnikey reader management service
         bindBackendService();
-        state=STATE_NO_READER;
+        state = STATE_NO_READER;
         // Launch Action Machine
         launchActionMachine();
 
@@ -193,8 +191,7 @@ public class MainActivity extends Activity {
                 mImgView.setVisibility(View.VISIBLE);
                 mPDFButton.setVisibility(View.GONE);
                 progressDialog.showDialog("Čitanje podataka...");
-                mReadAllTask = new ReadAllTask();
-                mReadAllTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+                fireReadAllTask();
             }
         });
 
@@ -205,8 +202,7 @@ public class MainActivity extends Activity {
                 mImgView.setVisibility(View.GONE);
                 mPDFButton.setVisibility(View.GONE);
                 progressDialog.showDialog("Čitanje podataka...");
-                mReadAllTask = new ReadAllTask();
-                mReadAllTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+                fireReadAllTask();
             }
         });
 
@@ -221,6 +217,7 @@ public class MainActivity extends Activity {
         state = STATE_NO_READER;
         mReader = null;
         mFactory = null;
+
         actionMachine = new ActionMachine();
         actionMachine.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
         sendAction(EVENT_START_TASKS);
@@ -321,6 +318,14 @@ public class MainActivity extends Activity {
         Util.logDebug("OnDestroy");
         stopPollingCard();
         stopPollingReader();
+
+        if (mCard != null) {
+            try {
+                mCard.disconnect(true);
+            } catch (CardException e) {
+                e.printStackTrace();
+            }
+        }
 
         unbindBackendService();
     }
@@ -424,16 +429,21 @@ public class MainActivity extends Activity {
                         startPollingCard();
                     } else if (EVENT_READER_DISCONNECTED.equals(action)) {
                         state = STATE_NO_READER;
+                        mCard = null;
+                        publishProgress();
                     } else if (EVENT_READER_CONNECTED.equals(action)) {
                         state = STATE_READER;
+                        publishProgress();
                     } else if (EVENT_CARD_DISCONNECTED.equals(action)) {
                         if (state == STATE_READER || state == STATE_CARD || state == STATE_CARD_UNKNOWN) {
                             state = STATE_NO_CARD;
+                            publishProgress();
                             // No card
                         }
                     } else if (EVENT_CARD_CONNECTED_UNKNOWN.equals(action)) {
                         if (state == STATE_READER || state == STATE_NO_CARD) {
                             state = STATE_CARD_UNKNOWN;
+                            publishProgress();
                             // Card present, but unknown
                             // The card is inserted. Check Card ATR
                             fireGetATRTask();
@@ -441,35 +451,40 @@ public class MainActivity extends Activity {
                     } else if (EVENT_CARD_CONNECTED.equals(action)) {
                         if (state == STATE_CARD_UNKNOWN) {
                             state = STATE_CARD;
+                            publishProgress();
                             // Card present
                             // start reading
-                            fireReadAllTask();
+                            runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    includeImgDialog.create().show();
+                                }
+                            });
+
                         }
                     } else if (EVENT_READING_FAILED.equals(action)) {
-                        stopPollingCard();
-                        stopPollingReader();
-                        actionFail();
-                        Util.logDebug("Disconnecting card...");
-                        if (mCard != null) {
-                            try {
-                                mCard.disconnect(true);
-                            } catch (CardException e) {
-                                e.printStackTrace();
-                            }
-                        }
-                        cancel(true);
+//                        stopPollingCard();
+//                        stopPollingReader();
+//                        Util.logDebug("Disconnecting card...");
+//                        if (mCard != null) {
+//                            try {
+//                                mCard.disconnect(true);
+//                            } catch (CardException e) {
+//                                e.printStackTrace();
+//                            }
+//                        }
+//                        cancel(true);
                     } else if (EVENT_READING_SUCCESS.equals(action)) {
-                        stopPollingCard();
-                        stopPollingReader();
-                        if (mCard != null) {
-                            try {
-                                mCard.disconnect(true);
-                            } catch (CardException e) {
-                                e.printStackTrace();
-                            }
-                        }
-                        actionSuccess();
-                        cancel(true);
+//                        stopPollingCard();
+//                        stopPollingReader();
+//                        if (mCard != null) {
+//                            try {
+//                                mCard.disconnect(true);
+//                            } catch (CardException e) {
+//                                e.printStackTrace();
+//                            }
+//                        }
+//                        cancel(true);
                     }
                 }
                 try {
@@ -486,7 +501,32 @@ public class MainActivity extends Activity {
 
         @Override
         public void onProgressUpdate(Void... params) {
-
+            switch (state) {
+                case STATE_NO_READER:
+                    // get ready for reader insertion
+                    tv_reader.setBackgroundColor(getResources().getColor(R.color.absent));
+                    tv_card.setBackgroundColor(getResources().getColor(R.color.absent));
+                    tv_reader.setText(R.string.reader_absent);
+                    tv_card.setText(R.string.card_absent);
+                    break;
+                case STATE_READER:
+                    // get ready for card insertion
+                    tv_reader.setBackgroundColor(getResources().getColor(R.color.present));
+                    tv_reader.setText(R.string.reader_present);
+                    break;
+                case STATE_NO_CARD:
+                    tv_card.setBackgroundColor(getResources().getColor(R.color.absent));
+                    tv_card.setText(R.string.card_absent);
+                    break;
+                case STATE_CARD:
+                    tv_card.setBackgroundColor(getResources().getColor(R.color.present));
+                    tv_card.setText(R.string.card_present);
+                    break;
+                case STATE_CARD_UNKNOWN:
+                    tv_card.setBackgroundColor(getResources().getColor(R.color.unknown));
+                    tv_card.setText(R.string.card_unknown);
+                    break;
+            }
         }
     }
 
@@ -504,10 +544,9 @@ public class MainActivity extends Activity {
         }
     }
 
-
     private class PollReaderPresent extends AsyncTask<Void, Void, Void> {
         private Boolean isReaderPresent = false;
-        private int absent_count = 0;
+        // private int absent_count = 0;
 
         @Override
         protected Void doInBackground(Void... params) {
@@ -529,10 +568,10 @@ public class MainActivity extends Activity {
                     isReaderPresent = true;
                     //Util.logError( "Reader not null");
                 }
-                if (!isReaderPresent) absent_count++;
-                if (absent_count >= READER_ABSENT_MAX_SECS) {
-                    sendAction(EVENT_READING_FAILED);
-                }
+                //if (!isReaderPresent) absent_count++;
+                // if (absent_count >= READER_ABSENT_MAX_SECS) {
+                //     sendAction(EVENT_READING_FAILED);
+                // }
                 try {
                     if (isCancelled()) {
                         throw new InterruptedException();
@@ -549,7 +588,7 @@ public class MainActivity extends Activity {
 
     private class PollCardPresent extends AsyncTask<Void, Void, Void> {
         private Boolean isCardPresent = false;
-        private int absent_count = 0;
+        //private int absent_count = 0;
 
         @Override
         protected Void doInBackground(Void... params) {
@@ -582,10 +621,10 @@ public class MainActivity extends Activity {
                         sendAction(EVENT_READING_FAILED);
                     }
                 }
-                if (!isCardPresent) absent_count++;
-                if (absent_count >= CARD_ABSENT_MAX_SECS) {
-                    sendAction(EVENT_READING_FAILED);
-                }
+                //if (!isCardPresent) absent_count++;
+                // if (absent_count >= CARD_ABSENT_MAX_SECS) {
+                //     sendAction(EVENT_READING_FAILED);
+                //}
                 try {
                     if (isCancelled()) {
                         throw new InterruptedException();
