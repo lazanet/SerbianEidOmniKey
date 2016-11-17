@@ -1,7 +1,6 @@
 package freelancerwatermellon.serbianeidomnikey;
 
 import android.app.Activity;
-import android.content.BroadcastReceiver;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -24,7 +23,6 @@ import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -88,7 +86,6 @@ public class MainActivity extends Activity {
     ImageView mImgView;
     Button mPDFButton;
     Bundle mData_bundle = null;
-    ScrollView mScrView;
     private ReadAllTask readAllTask = null;
     private ServiceConnection mBackendServiceConnection;
     private ICardService mService = null;
@@ -98,16 +95,12 @@ public class MainActivity extends Activity {
     private int state;  // state variable
     private boolean includе_photo;
     private boolean mServiceBound = false;
-    // Local broadcast receiver
-    private BroadcastReceiver mRegistrationBroadcastReceiver;
     private Context mContext = null;
     private TextView tv_reader;
     private TextView tv_card;
 
     private IncludeImageDialog includeImgDialog;
     private EnterKeyDialog enterKeyDialog = null;
-
-    private TextView mATR = null;
 
     private EidInfo evI;
 
