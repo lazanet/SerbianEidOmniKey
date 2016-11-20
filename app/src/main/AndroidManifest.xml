@@ -25,7 +25,8 @@
         android:theme="@style/AppTheme">
         <activity
             android:name="freelancerwatermellon.serbianeidomnikey.MainActivity"
-            android:label="@string/title_activity_jsr268_client">
+            android:label="@string/title_activity_jsr268_client"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
